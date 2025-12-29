@@ -1,10 +1,11 @@
 # elasticsearch-fetcher
 
-`1.` Проверка доступности кластера X.X.X.X:YYYY
+`1.` Проверка доступности кластера Elasticsearch X.X.X.X:YYYY
 ```bash
 curl http://X.X.X.X:YYYY/_cluster/health
 ```
-Пример ответа:
+
+Пример возможного ответа о доступности:
 ```txt
 {
   "name": "coordinator-preproduction-1",
@@ -24,3 +25,5 @@ curl http://X.X.X.X:YYYY/_cluster/health
   "tagline": "You Know, for Search"
 }
 ```
+
+2. 

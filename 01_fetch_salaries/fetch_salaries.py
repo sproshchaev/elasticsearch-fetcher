@@ -1,4 +1,3 @@
-# v2 с доп. индикацией процесса обработки и небольшим числом получаемых документов
 # Оптимально для "PE" "doc_count" : 400480
 import requests
 import json
@@ -8,11 +7,8 @@ ES_URL = "http://10.0.5.41:9200"  # URL Elasticsearch
 INDEX = "indeed_job_page"         # индекс
 BATCH_SIZE = 1000                 # Размер порции (size) для постраничного получения
 
-# Выборка стран
-# COUNTRIES = ["PK", "MY", "ZA", "PE", "PH", "ID", "US", "QA", "TH", "SA"]
-# COUNTRIES = ["QA", "SA", "TH"]
-COUNTRIES = ["US"]
-
+# Страны из вашей агрегации
+COUNTRIES = ["PK", "MY", "ZA", "PE", "PH", "ID", "US", "QA", "TH", "SA"]
 
 def fetch_all_salaries_by_country(country_code):
     """
@@ -20,14 +16,8 @@ def fetch_all_salaries_by_country(country_code):
     """
     all_salaries = []
     search_after = None
-    page_count = 0
-
-    print(f"  ➤ Начинаю загрузку данных для {country_code}...")
 
     while True:
-        page_count += 1
-        print(f"    Загружаю страницу {page_count}...", end='\r')  # Выводим текущую страницу
-
         # Формируем тело запроса
         query_body = {
             "_source": ["rowSalary"],
@@ -68,14 +58,13 @@ def fetch_all_salaries_by_country(country_code):
         )
 
         if response.status_code != 200:
-            print(f"\n❌ Ошибка при запросе для страны {country_code}: {response.status_code}, {response.text}")
+            print(f"Ошибка при запросе для страны {country_code}: {response.status_code}, {response.text}")
             break
 
         result = response.json()
 
         hits = result.get("hits", {}).get("hits", [])
         if not hits:
-            print(f"\n✅ Загрузка для {country_code} завершена. Найдено {len(all_salaries)} записей.")
             break
 
         # Извлекаем rowSalary
@@ -99,11 +88,11 @@ def save_salaries_to_file(country_code, salaries):
     with open(filename, "w", encoding="utf-8") as f:
         for salary in salaries:
             f.write(salary + "\n")
-    print(f"📁 Сохранено {len(salaries)} записей в {filename}")
+    print(f"Сохранено {len(salaries)} записей в {filename}")
 
 def main():
     for country in COUNTRIES:
-        print(f"\n🚀 Обработка страны: {country}")
+        print(f"Обработка страны: {country}")
         salaries = fetch_all_salaries_by_country(country)
         save_salaries_to_file(country, salaries)
 

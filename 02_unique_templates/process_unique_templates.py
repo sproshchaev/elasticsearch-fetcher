@@ -41,8 +41,10 @@ def extract_unique_templates_by_first_pattern(input_filename, output_filename):
 
 def main():
     # Страны
-    COUNTRIES = ["PK", "MY", "ZA", "PE", "PH", "ID", "US", "QA", "TH", "SA"]
+    # COUNTRIES = ["PK", "MY", "ZA", "PE", "PH", "ID", "US", "QA", "TH", "SA"]
     # COUNTRIES = ["QA", "SA", "TH"]
+    COUNTRIES = ["US"]
+
 
     for country in COUNTRIES:
         print(f"\n🚀 Обработка страны: {country}")

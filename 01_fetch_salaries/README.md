@@ -1,4 +1,12 @@
-Необходимо установить необходимую библиотеку requests
+Необходимо установить библиотеку requests
+
+1. Извлечение данных из Elasticsearch:  
+- [fetch_salaries.py](fetch_salaries.py)       - до 1 млн. документов
+- [fetch_salaries_v2.py](fetch_salaries_v2.py) - до 1 млн. документов 
+- [fetch_salaries_v3.py](fetch_salaries_v3.py) - если более 1 млн документов 
+
+2. Формирование уникальных шаблонов по извлеченным данным п.1
+
 
 В Terminal в PyCharm:
 ```bash
